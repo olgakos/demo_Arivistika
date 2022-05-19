@@ -16,7 +16,6 @@ public class PaymentPage extends TestBase {
     public void checkPaymentFormTitle() {
         textPaymentFormTitle.shouldBe(visible);
     }
-
     public void checkFieldName() {
         textfieldName.isDisplayed();
     }

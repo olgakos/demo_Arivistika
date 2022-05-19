@@ -1,4 +1,4 @@
-package legacy.TestsAndPageObjects3.tests;
+package legacyCode.TestsAndPageObjects3.tests;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;

@@ -18,7 +18,7 @@ public class VideoTests extends TestBase {
     void openCoursePayTest() {
         open("cources-list/");
         videoPage.courseHeaderDeclarantVisible();
-        videoPage.setButtonMoreAboutDeclarant(); //кнопка "Подробнее"
+        videoPage.setButtonMoreAboutDeclarant();
         videoPage.setButtonBay();
         paymentPage.checkPaymentFormTitle();
         paymentPage.checkFieldName();

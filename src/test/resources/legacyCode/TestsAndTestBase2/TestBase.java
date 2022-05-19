@@ -1,4 +1,4 @@
-package legacy.TestsAndPageObjects3.tests;
+package legacyCode.TestsAndTestBase2;
 
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.logevents.SelenideLogger;

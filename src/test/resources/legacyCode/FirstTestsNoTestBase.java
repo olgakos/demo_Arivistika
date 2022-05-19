@@ -1,11 +1,12 @@
-package legacy.TestsAndTestBase2;
+package legacyCode;
 
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
-import org.junit.jupiter.api.Test;
+import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.logevents.SelenideLogger;
+import helpers.Attach;
+import io.qameta.allure.selenide.AllureSelenide;
+import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
-import tests.TestBase;
+import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.time.Duration;
 
@@ -14,25 +15,60 @@ import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 
-
 @DisplayName("Проверка элементов публичной части сайта")
-@Disabled ("Эти проверки будут пропущены")
-public class FirstTestsAddTestBase2 extends TestBase {
+public class FirstTestsNoTestBase {
+
+    @BeforeEach
+    public void beforeEach() {
+        String browser = System.getProperty("browser", "chrome");
+        String size = System.getProperty("size", "1920x1080");
+
+        SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
+        Configuration.browserSize = size;
+        Configuration.browser = browser;
+        //Configuration.remote = "https://user1:1234@selenoid.autotests.cloud/wd/hub";
+
+        DesiredCapabilities capabilities = new DesiredCapabilities();
+        capabilities.setCapability("enableVNC", true);
+        capabilities.setCapability("enableVideo", true);
+        Configuration.browserCapabilities = capabilities;
+
+        Attach.attachAsText("Browser: ", browser);
+        Attach.attachAsText("Size: ", size);
+
+        clearBrowserCookies();
+
+        Configuration.baseUrl = "https://arivistika.ru/";
+        //open("");
+    }
+
+    @AfterEach
+    @DisplayName("Формирование артефактов тестирования")
+    void addAttachment() {
+        Attach.screenshotAs("Last screenshot");
+        Attach.addVideo();
+        Attach.pageSource();
+        Attach.browserConsoleLogs();
+    }
+
+    @AfterAll
+    public static void afterAll() {
+        closeWebDriver();
+    }
 
     @Test
     @DisplayName("Залогин")
     @Tag("loginTests")
     void loginTestFail() {
         open("my-account/");
-        $("#username").setValue("test@test.test");
+        $("#username").setValue("test@test.com");
         $("#password").setValue("123");
         $(By.name("login")).click(); //кнопка "Войти"
         $(".woocommerce-error").shouldHave(text("Неверный адрес e-mail"));
     }
-
-    @Tag("siteTests")
-    @DisplayName("Проверка текста на главной странице")
     @Test
+    @DisplayName("Проверка текста на главной странице")
+    @Tag("siteTests")
     void searshTextElement() {
         open("");
         $(".site-branding").shouldHave(text("Школа [ВЭД] Аривистики"));
@@ -42,9 +78,10 @@ public class FirstTestsAddTestBase2 extends TestBase {
         $(By.linkText("info@arivistika.ru")).isDisplayed();
         $(".footer-address").shouldHave(text("Санкт-Петербург, ул. Гапсальская, д. 5, БЦ «Балтика», офис 801"));
     }
-    @Tag("siteTests")
-    @DisplayName("Отправки формы (заполнены не все поля)")
+
     @Test
+    @DisplayName("Отправки формы (заполнены не все поля)")
+    @Tag("siteTests")
     void fillFormTest() {
         open("");
         $("input[placeholder='Ваше имя']").setValue("Olga");
@@ -62,11 +99,13 @@ public class FirstTestsAddTestBase2 extends TestBase {
     //  Выделить обязательные поля, если обязательны не все.
     //  Добавить понятный текст причины ошибки регистрации ("введены не все данные...")
     //Expect:
-   //$$(".wpcf7-response-output").find(text("При отправке сообщения произошла ошибка")).shouldBe(visible, Duration.ofSeconds(10));
+    //$$(".wpcf7-response-output").find(text("При отправке сообщения
+    // произошла ошибка")).shouldBe(visible, Duration.ofSeconds(10));
 
-    @Tag("coursesTests")
-    @DisplayName("Проверка оплаты видеоурока \"Курс PRO Декларирование\"")
+
     @Test
+    @DisplayName("Проверка оплаты видеоурока \"Курс PRO Декларирование\"")
+    @Tag("coursesTests")
     void openCoursePayTest() {
         open("cources-list/");
         $(byText("Курс PRO Декларирование")).isDisplayed();
@@ -77,9 +116,10 @@ public class FirstTestsAddTestBase2 extends TestBase {
         $(".fieldName").$(byText("Email для чека")).isDisplayed();
     }
 
-    @Tag("coursesTests")
-    @DisplayName("Проверка доступности карточки видеоурока \"Курс PRO ВЭД (Запись)\"")
+    @Disabled ("Этот тест будет пропущен")
     @Test
+    @DisplayName("Проверка доступности карточки видеоурока \"Курс PRO ВЭД (Запись)\"")
+    @Tag("coursesTests")
     void openCourseCardTest() {
         open("cources-list/");
         $(byText("Курс PRO ВЭД (Запись)")).isDisplayed();
@@ -96,16 +136,14 @@ public class FirstTestsAddTestBase2 extends TestBase {
 
     // TODO: 16.05.2022, запрос на улучшение: адрес страницы сделать "courses-list" (сейчас "cources-list")
 
-
     @Test
     @Disabled ("Этот тест будет пропущен")
+    @DisplayName("Поиск по странице Расписание")
     @Tag("eventsTests")
-    @DisplayName("Проверка текста на стр.Расписание")
     void searchEvents() {
         open("events-list/");
         $(".event-title").shouldHave(text("Что нужно хранить и держать в порядке на случай таможенной проверки"));
     }
 }
-
 
 

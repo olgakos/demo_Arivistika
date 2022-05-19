@@ -23,7 +23,7 @@ public class TestBase {
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
         Configuration.browserSize = size;
         Configuration.browser = browser;
-        //Configuration.remote = "https://user1:1234@selenoid.autotests.cloud/wd/hub";
+        //Configuration.remote = "https://user1:1234@selenoid.autotests.cloud/wd/hub"; //NB удаленный запуск
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("enableVNC", true);
@@ -37,7 +37,6 @@ public class TestBase {
 
         Configuration.baseUrl = "https://arivistika.ru/";
         //open("");
-
     }
 
     @AfterEach
@@ -49,9 +48,12 @@ public class TestBase {
         Attach.browserConsoleLogs();
     }
 
-    @AfterAll
-    public static void afterAll() {
+    @AfterEach
+    @DisplayName("Закрыть браузер после записи видео Selenoid")
+    void browserClose() {
         closeWebDriver();
     }
 
+    //@AfterAll
+    //public static void afterAll() {  closeWebDriver(); }
 }

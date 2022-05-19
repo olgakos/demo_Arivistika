@@ -1,6 +1,6 @@
-package legacy.TestsAndPageObjects3.tests;
+package legacyCode.TestsAndPageObjects3.tests;
 
-import legacy.TestsAndPageObjects3.pages.HomePage;
+import legacyCode.TestsAndPageObjects3.pages.HomePage;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;

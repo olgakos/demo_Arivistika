@@ -1,4 +1,4 @@
-package legacy.TestsAndPageObjects3.pages;
+package legacyCode.TestsAndPageObjects3.pages;
 
 import com.codeborne.selenide.SelenideElement;
 import tests.TestBase;

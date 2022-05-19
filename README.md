@@ -1,3 +1,4 @@
+
 # Проект по автоматизации тестирования сайта ***
 :earth_americas: https://***
 
@@ -19,7 +20,7 @@
 <a href="https://github.com/"><img src="images/logo/GitHub.svg" width="50" height="50"  alt="Github"/></a>
 <a href="https://junit.org/junit5/"><img src="images/logo/Junit5.svg" width="50" height="50"  alt="JUnit 5"/></a>
 <a href="https://gradle.org/"><img src="images/logo/Gradle.svg" width="50" height="50"  alt="Gradle"/></a>
-<a href="https://selenide.org/"><img src="images/logo/Selenide.svg" width="50" height="50"  alt="Selenide"/></a>
+<a href="https://selenide.org/"><img src="images/logo/Selenide.svg" width="50" height="50" alt="Selenide"/></a>
 <a href="https://aerokube.com/selenoid/"><img src="images/logo/Selenoid.svg" width="50" height="50"  alt="Selenoid"/></a>
 <a href="https://github.com/allure-framework/allure2"><img src="images/logo/Allure.svg" width="50" height="50"  alt="Allure"/></a>
 <a href="https://www.jenkins.io/"><img src="images/logo/Jenkins.svg" width="50" height="50"  alt="Jenkins"/></a>
@@ -56,8 +57,11 @@ gradle clean test
 clean
 test
 -Dbrowser=${BROWSER}
-...............................
-..............................
+-DbrowserVersion=${BROWSER_VERSION}
+-DbrowserSize=${BROWSER_SIZE}
+-DremoteDriverUrl=https://user1:1234@${REMOTE_BROWSER}/wd/hub/
+-DvideoStorage=https://${REMOTE_BROWSER}/video/
+//-Dthreads=${THREADS}
 ```
 
 ## :watermelon: Запуск тестов в Jenkins
@@ -71,7 +75,7 @@ test
 - `BROWSER_VERSION` версия браузера, в которой будут выполняться тесты (по умолчанию - 91.0).
 - `BROWSER_SIZE` – размер окна браузера, в котором будут выполняться тесты (по умолчанию - 1920x1080).
 - `REMOTE_BROWSER` - адрес (логин и пароль) удаленного сервера (Selenoid), на котором будут запускаться тесты.
-- `THREADS` - кол-во потоков
+- `THREADS` - кол-во потоков 
 
 Дополнительные параметры сборки, задействованные для выгрузки краткого отчета в Telegram:
 - `PROJECT_NAME`  название проекта
@@ -84,7 +88,7 @@ test
 <br>Способ 1: Сформировать отчет средствами IJ IDEA (Allure Serve)
 <br>Способ 2:
 <br>1. Выполнить сборку в Jenkins
-<br>2. Убедиться, что в блоке История сборок (напротив номера #) появился желтый значок Allure Report
+<br>2. Убедиться, что в блоке История сборок (напротив номера #) появился желтый значок Allure Report. (Если сборка запущена, но значок не виден, убедиться, что меню "История сброк" раскрыто)
 <br>3. Кликнуть по значку Allure Report
 <br>Ожидаемый результат: Откроется страница с готовым Allure Report
 
@@ -99,18 +103,18 @@ test
 
 ###### Главный экран отчета (Owerwiev)
 <p align="center">
-<img title="Allure Graphics" src="images/screens/ScreenshotAllure1.jpg">
+<img title="Allure Graphics" src="images/screens/ScreenshotAllure1.jpg" alt="Allure Graphics">
 </p>
 
 ###### Страница с проведенными тестами (Suites)
 <p align="center">
-<img title="Allure Graphics" src="images/screens/ScreenshotAllure2.jpg">
+<img title="Allure Graphics" src="images/screens/ScreenshotAllure2.jpg" alt="Allure Graphics">
 </p>
 
 ## :watermelon: Видео прохождения тестов
 К каждому тесту (в отчете) прилагается автоматически сгенерирвонное Selenoid видео. Пример:
 <p align="center">
-  <img title="Selenoid Video" src="images/screens/VideoExample.gif" alt="video">
+  <img title="Selenoid Video" src="images/screens/VideoExample.gif" alt="Video">
 </p>
 
 ## :bellhop_bell: Отчет в Telegram
@@ -118,9 +122,10 @@ test
 Чтобы видеть сообщения от бота, вступите (временно) в телеграм-группу `OlgaKos Bot_Group`
 
 <p align="center">
-<img title="Telegram Bot" src="images/screens/ScreenshotTelegram.jpg">
+<img title="Telegram Bot" src="images/screens/ScreenshotTelegram.jpg" alt="Telegram Bot">
 </p>
 
 ----------
 ЧЕРНОВИК
 ver 2022-05-16
+ver2 2022-05-19 (add PageObject)

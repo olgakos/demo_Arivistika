@@ -13,7 +13,6 @@ import static com.codeborne.selenide.Selenide.$$;
 
 public class HomePage {
 
-
     // locators
     //Ниже: пример использования PageObjects для Форм
     //$("input[placeholder='Ваше имя']")
